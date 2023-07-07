@@ -1,7 +1,7 @@
 import React from "react";
-import User from "../assets/user.jpg";
+import User from "../../assets/user.jpg";
 import "./SideBar.css";
-import { ReactComponent as Logo } from "../assets/logo.svg";
+import { ReactComponent as Logo } from "../../assets/logo.svg";
 
 const SideBar = () => {
   return (

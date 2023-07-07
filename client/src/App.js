@@ -1,13 +1,22 @@
 import "./App.css";
-import List from "./Components/List";
-import SideBar from "./Components/SideBar";
+import HomeScreen from "./Components/invoice/pages/HomeScreen";
+import InvoiceScreen from "./Components/invoice/pages/InvoiceScreen";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SideBar from "./Components/shared/SideBar";
 
 function App() {
   return (
-    <div className="app">
-      <SideBar />
-      <List />
-    </div>
+    <BrowserRouter>
+      <div className="app">
+        <SideBar />
+        <Routes>
+          <Route>
+            <Route path="/" exact element={<HomeScreen />} />
+            <Route path="invoice/:id" element={<InvoiceScreen />} />
+          </Route>
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

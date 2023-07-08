@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Alert from "react-bootstrap/Alert";
 import { ReactComponent as Right } from "../../../assets/icon-arrow-right.svg";
-import { Link } from "react-router-dom";
 
-const InvoicesList = ({ item }) => {
+const InvoicesList = ({ item, handleForward }) => {
   return (
     <Card key={item.id} style={{ marginBottom: "20px" }}>
       <Card.Body>
@@ -16,12 +15,11 @@ const InvoicesList = ({ item }) => {
           <Col className="text-secondary">{item.clientName}</Col>
           <Col className="fw-bold">${item.total}</Col>
           <Col md={3}>
-            {" "}
             <Alert
               variant={
                 item.status === "paid"
                   ? "success"
-                  : "draft"
+                  : item.status === "draft"
                   ? "warning"
                   : "secondary"
               }
@@ -31,10 +29,7 @@ const InvoicesList = ({ item }) => {
             </Alert>
           </Col>
           <Col md={1}>
-            {" "}
-            <Link to={`/invoice/${item._id}`}>
-              <Right />
-            </Link>
+            <Right onClick={() => handleForward({ item })} />
           </Col>
         </Row>
       </Card.Body>

@@ -2,3 +2,8 @@
   display: flex;
   background-color: #f2f2f2;
 }
+
+Button {
+  width: 133px;
+  height: 48px;
+}

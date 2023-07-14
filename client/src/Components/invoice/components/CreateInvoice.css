@@ -1,0 +1,10 @@
+.custom-offcanvas .offcanvas-backdrop {
+  left: auto;
+  right: 0;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.6
+  ); /* Adjust the backdrop color as needed */
+}

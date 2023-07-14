@@ -29,7 +29,10 @@ const InvoicesList = ({ item, handleForward }) => {
             </Alert>
           </Col>
           <Col md={1}>
-            <Right onClick={() => handleForward({ item })} />
+            <Right
+              onClick={() => handleForward({ item })}
+              style={{ cursor: "pointer" }}
+            />
           </Col>
         </Row>
       </Card.Body>

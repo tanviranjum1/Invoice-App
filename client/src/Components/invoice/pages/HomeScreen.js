@@ -4,6 +4,7 @@ import axios from "axios";
 import InvoicesList from "../components/InvoicesList";
 import "./HomeScreen.css";
 import ViewInvoice from "../components/ViewInvoice";
+import Empty from "../../shared/Empty";
 
 const HomeScreen = () => {
   const [loadedInvoices, setLoadedInvoices] = useState([]);
@@ -11,7 +12,6 @@ const HomeScreen = () => {
   const [viewItem, setViewItem] = useState(null);
 
   useEffect(() => {
-    // fetch invoices.
     const fetchInvoices = async () => {
       try {
         const responseData = await axios.get(
@@ -30,17 +30,17 @@ const HomeScreen = () => {
     setViewItem(item);
     setShowComponent(true);
   };
+
   const handleBack = () => {
     setViewItem(null);
     setShowComponent(false);
   };
 
   const DeleteHandler = (deletedInvoiceId) => {
-    // keep the onces not deleted.
+    // keep the ones not deleted.
     setLoadedInvoices((prevInvoices) =>
       prevInvoices.filter((invoice) => invoice._id !== deletedInvoiceId)
     );
-    console.log(loadedInvoices);
     setShowComponent(false);
   };
 
@@ -49,21 +49,26 @@ const HomeScreen = () => {
       {loadedInvoices && showComponent == false ? (
         <>
           <InvoicesHeader size={loadedInvoices.length} />
-          {loadedInvoices.map((item) => (
-            <InvoicesList
-              item={item}
-              key={item._id}
-              handleForward={handleForward}
-            />
-          ))}
+          {loadedInvoices.length != 0 ? (
+            loadedInvoices.map((item) => (
+              <InvoicesList
+                item={item}
+                key={item._id}
+                handleForward={handleForward}
+              />
+            ))
+          ) : (
+            <Empty />
+          )}
         </>
       ) : (
         <ViewInvoice
           viewItem={viewItem}
           handleBack={handleBack}
           onDelete={DeleteHandler}
+          key={viewItem._id}
         />
-      )}
+      )}{" "}
     </div>
   );
 };

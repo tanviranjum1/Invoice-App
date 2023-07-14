@@ -8,7 +8,7 @@ router.get("/:id", invoicesControllers.getInvoiceById);
 
 router.post("/", invoicesControllers.createInvoice);
 
-router.patch("/:id", invoicesControllers.editInvoiceById);
+router.put("/:id", invoicesControllers.editInvoiceById);
 
 router.delete("/:id", invoicesControllers.deleteInvoiceById);
 

@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import DeleteInvoice from "./DeleteInvoice";
 import axios from "axios";
+import EditInvoice from "./EditInvoice";
 
 import { ReactComponent as Left } from "../../../assets/icon-arrow-left.svg";
 
@@ -18,6 +19,14 @@ const ViewInvoice = ({ viewItem, handleBack, onDelete }) => {
   const handleClose = () => {
     setShow(false);
   };
+
+  const [editView, setEditView] = useState(false);
+
+  const handleEditOpen = () => {
+    setEditView(!editView);
+  };
+
+  const handleEditClose = () => setEditView(false);
 
   // Delete comment
   const confirmDeleteHandler = async () => {
@@ -41,11 +50,11 @@ const ViewInvoice = ({ viewItem, handleBack, onDelete }) => {
   };
 
   return (
-    <>
-      <span onClick={handleBack}>
+    <div>
+      <span onClick={handleBack} style={{ cursor: "pointer" }}>
         <Left /> Go back
       </span>
-      <Card key={viewItem.id} style={{ marginBottom: "20px" }}>
+      <Card style={{ marginBottom: "20px" }}>
         <Card.Body>
           <Row className=" d-flex align-viewItems-center text-center">
             <Col>Status</Col>
@@ -65,7 +74,9 @@ const ViewInvoice = ({ viewItem, handleBack, onDelete }) => {
             </Col>
             <Col>
               {" "}
-              <Button variant="light">Edit</Button>{" "}
+              <Button variant="light" onClick={handleEditOpen}>
+                Edit
+              </Button>{" "}
             </Col>
             <Col>
               {" "}
@@ -125,7 +136,16 @@ const ViewInvoice = ({ viewItem, handleBack, onDelete }) => {
             </tbody>
           </Table>
 
-          <div>Amount due {viewItem.total}</div>
+          <div
+            class="bg-dark text-white"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            Amount due {viewItem.total}
+          </div>
         </Card.Body>
       </Card>
       {show && (
@@ -136,7 +156,14 @@ const ViewInvoice = ({ viewItem, handleBack, onDelete }) => {
           id={viewItem.id}
         />
       )}
-    </>
+      {editView && (
+        <EditInvoice
+          editView={editView}
+          editItem={viewItem}
+          handleEditClose={handleEditClose}
+        />
+      )}
+    </div>
   );
 };
 

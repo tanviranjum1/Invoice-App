@@ -22,22 +22,42 @@ const getInvoiceById = asyncHandler(async (req, res) => {
 });
 
 const editInvoiceById = asyncHandler(async (req, res) => {
-  const invoiceId = req.params.id;
+  const {
+    id,
+    createdAt,
+    paymentDue,
+    description,
+    paymentTerms,
+    clientName,
+    clientEmail,
+    status,
+    total,
+    clientAddress,
+    senderAddress,
+    items,
+  } = req.body;
 
-  let invoice;
-  try {
-    invoice = await Invoice.findById(invoiceId);
-  } catch (err) {
-    res.status(404).json({ error: "invoice not found to edit" });
-  }
+  const invoice = await Invoice.findById(req.params.id);
 
-  invoice.content = req.body.content;
+  if (invoice) {
+    invoice.id = id;
+    invoice.createdAt = createdAt;
+    invoice.paymentDue = paymentDue;
+    invoice.description = description;
+    invoice.paymentTerms = paymentTerms;
+    invoice.clientName = clientName;
+    invoice.clientEmail = clientEmail;
+    invoice.status = status;
+    invoice.total = total;
+    invoice.clientAddress = clientAddress;
+    invoice.senderAddress = senderAddress;
+    invoice.items = items;
 
-  try {
-    const editedinvoice = await invoice.save();
-    res.status(200).json(editedinvoice);
-  } catch (err) {
-    console.log("Server error", err);
+    const updatedInvoice = await invoice.save();
+    res.json(updatedInvoice);
+  } else {
+    res.status(404);
+    throw new Error("Invoice not found");
   }
 });
 

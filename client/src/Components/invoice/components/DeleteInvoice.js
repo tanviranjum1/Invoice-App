@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-function DeleteModal({ show, handleClose, confirmDeleteHandler, id }) {
+function DeleteInvoice({ show, handleClose, confirmDeleteHandler, id }) {
   return (
     <Modal
       aria-labelledby="contained-modal-title-vcenter"
@@ -9,27 +9,23 @@ function DeleteModal({ show, handleClose, confirmDeleteHandler, id }) {
       show={show}
       onHide={handleClose}
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Confirm Deletion
-        </Modal.Title>
-      </Modal.Header>
       <Modal.Body>
+        <h3 id="contained-modal-title-vcenter">Confirm Deletion</h3>
         <p>
           Are you sure you want to delete invoice {id}? This action cannot be
           undone.
         </p>
+        <div>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={confirmDeleteHandler}>
+            Delete
+          </Button>
+        </div>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Cancel
-        </Button>
-        <Button variant="danger" onClick={confirmDeleteHandler}>
-          Delete
-        </Button>
-      </Modal.Footer>
     </Modal>
   );
 }
 
-export default DeleteModal;
+export default DeleteInvoice;

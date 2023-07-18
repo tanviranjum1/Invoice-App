@@ -89,29 +89,45 @@ const ViewInvoice = ({ viewItem, handleBack, onDelete }) => {
       </Card>
       <Card>
         <Card.Body>
-          <Row>
+          <Row className="mb-3">
             <Col>
-              #{viewItem.id} {viewItem.description}
+              #{viewItem.id}
+              <br />
+              {viewItem.description}
             </Col>
-            <Col>
+            <Col xs={2}>
               {viewItem.senderAddress.street}
+              <br />
               {viewItem.senderAddress.city}
+              <br />
               {viewItem.senderAddress.postCode}
+              <br />
               {viewItem.senderAddress.country}
             </Col>
           </Row>
-          <Row>
+          <Row className="mb-3">
             <Col>
-              Invoice Date {viewItem.createdAt} Payment Due{" "}
+              <p className="text-secondary mb-1">Invoice Date</p>
+              {viewItem.createdAt}
+              <p className="text-secondary mb-1">Payment Due</p>
               {viewItem.paymentDue}
             </Col>
-            <Col>
-              Bill To {viewItem.clientName} {viewItem.clientAddress.street}
+            <Col className="text-secondary">
+              <p className="mb-1">Bill To</p>
+              <span className="text-dark">{viewItem.clientName}</span>
+              <br />
+              {viewItem.clientAddress.street}
+              <br />
               {viewItem.clientAddress.city}
+              <br />
               {viewItem.clientAddress.postCode}
+              <br />
               {viewItem.clientAddress.country}
             </Col>
-            <Col>Sent to {viewItem.clientEmail}</Col>
+            <Col>
+              <p className="text-secondary mb-1">Sent to</p>
+              <span className="text-dark">{viewItem.clientEmail}</span>
+            </Col>
           </Row>
 
           <Table>
@@ -140,11 +156,13 @@ const ViewInvoice = ({ viewItem, handleBack, onDelete }) => {
             class="bg-dark text-white"
             style={{
               display: "flex",
-              justifyContent: "center",
+              justifyContent: "space-between",
               alignItems: "center",
+              height: "80px",
+              padding: "0 10px",
             }}
           >
-            Amount due {viewItem.total}
+            Amount due <span className="display-6">{viewItem.total}</span>
           </div>
         </Card.Body>
       </Card>
@@ -161,6 +179,7 @@ const ViewInvoice = ({ viewItem, handleBack, onDelete }) => {
           editView={editView}
           editItem={viewItem}
           handleEditClose={handleEditClose}
+          key={viewItem._id}
         />
       )}
     </div>

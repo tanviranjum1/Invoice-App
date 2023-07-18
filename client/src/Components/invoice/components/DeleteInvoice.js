@@ -15,7 +15,7 @@ function DeleteInvoice({ show, handleClose, confirmDeleteHandler, id }) {
           Are you sure you want to delete invoice {id}? This action cannot be
           undone.
         </p>
-        <div>
+        <div className="text-right">
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>

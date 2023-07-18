@@ -6,9 +6,11 @@ import {
   Dropdown,
   Offcanvas,
   Container,
+  Button,
 } from "react-bootstrap";
 import "./CreateInvoice.css";
 import AddItems from "./AddItems";
+import { ReactComponent as Delete } from "../../../assets/icon-delete.svg";
 
 // send axios request here.
 // form input take from empty.
@@ -66,6 +68,7 @@ const EditInvoice = ({ editView, handleEditClose, editItem }) => {
     countryTwo,
     invoiceDate,
     description,
+    items,
   } = formData;
 
   const [paymentTerms, setPaymentTerms] = useState(editItem.paymentTerms);
@@ -82,6 +85,8 @@ const EditInvoice = ({ editView, handleEditClose, editItem }) => {
     e.preventDefault();
     // send axios request.
   };
+
+  console.log(formData);
 
   return (
     <Container>
@@ -279,8 +284,65 @@ const EditInvoice = ({ editView, handleEditClose, editItem }) => {
                 onChange={handleChange}
               />
             </Form.Group>
+            <h5>Item List</h5>
 
-            <AddItems />
+            {items &&
+              items.map((item) => {
+                return (
+                  <Form.Group
+                    as={Row}
+                    className="mb-3"
+                    controlId="exampleForm.ControlInput10"
+                  >
+                    <Col xs={4}>
+                      <Form.Label className="text-secondary">
+                        Item Name
+                      </Form.Label>
+                      <Form.Control
+                        type="text"
+                        className="fw-bold"
+                        name="itemname"
+                        value={item.name}
+                      />
+                    </Col>
+                    <Col xs={2}>
+                      <Form.Label className="text-secondary">Qty</Form.Label>
+                      <Form.Control
+                        type="number"
+                        className="fw-bold"
+                        name="qty"
+                        value={item.quantity}
+                      />
+                    </Col>
+                    <Col xs={3}>
+                      <Form.Label className="text-secondary">Price</Form.Label>
+                      <Form.Control
+                        type="number"
+                        className="fw-bold"
+                        name="price"
+                        value={item.price}
+                      />
+                    </Col>
+                    <Col xs={3}>
+                      <Form.Label className="text-secondary">Total</Form.Label>
+                      <Form.Control
+                        type="number"
+                        className="fw-bold"
+                        readOnly
+                        value={item.total}
+                      />
+                    </Col>
+                    <Col xs={1}>
+                      <Delete />
+                    </Col>
+                  </Form.Group>
+                );
+              })}
+            <div className="d-grid gap-2">
+              <Button variant="light" style={{ width: "100%" }}>
+                + Add New Item
+              </Button>
+            </div>
           </Form>
         </Offcanvas.Body>
       </Offcanvas>

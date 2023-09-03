@@ -8,7 +8,7 @@ const { notFound, errorHandler } = require("./middlewares/errorMiddleware.js");
 // run in dev mode.
 const morgan = require("morgan");
 
-const port = 6718;
+const port = process.env.PORT || 6718;
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
